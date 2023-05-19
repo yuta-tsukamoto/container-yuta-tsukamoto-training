@@ -1,0 +1,18 @@
+#参考https://zenn.dev/ushknn/articles/19e9aa500cb1e7
+
+#Docker Composeは1つの実行で設定内容基づいて全てのサービスを生成・起動する
+#その実行の内容を書いたファイルがdocker-compose.yml
+#最初にバージョンの指定が必要、文法が違う
+version: '3'
+#service以下に個々のサービスを規定
+services:
+  app:
+    #ビルドに用いるDockerファイルの場所を指定、ピリオド1つはカレントフォルダ
+    build: .
+    #コンテナ内の/appにプロジェクトがあるディレクトリをマウント、コードの変更にイメージの再構築が不要になる効果？
+    volumes:
+      - ./:/app
+    #jupyter notebookが標準で使うポート番号
+    ports:
+      - 8888:8888
+    tty: true
